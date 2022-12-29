@@ -1,15 +1,23 @@
 import { Injectable } from '@nestjs/common';
+import { randomUUID } from 'crypto';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreatePatientDto } from './dto/create-patient.dto';
 import { UpdatePatientDto } from './dto/update-patient.dto';
+import { Patient } from './entities/patient.entity';
 
 @Injectable()
 export class PatientService {
+  constructor(private readonly prisma: PrismaService) {}
+
   create(createPatientDto: CreatePatientDto) {
-    return 'This action adds a new patient';
+    const patient: Patient = { ...createPatientDto, id: randomUUID() };
+    return this.prisma.patient.create({
+      data: patient,
+    });
   }
 
   findAll() {
-    return `This action returns all patient`;
+    return this.prisma.patient.findMany();
   }
 
   findOne(id: number) {
