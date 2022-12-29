@@ -39,7 +39,11 @@ export class PatientService {
     });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} patient`;
+  async delete(id: string) {
+    await this.prisma.patient.delete({
+      where: {
+        id,
+      },
+    });
   }
 }
