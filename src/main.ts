@@ -15,7 +15,6 @@ async function bootstrap() {
     .setDescription('Sistema para Administração de Medicamentos')
     .setVersion('1.0.0')
     .addTag('Status')
-    .addTag('patient')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
