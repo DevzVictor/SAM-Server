@@ -1,6 +1,7 @@
 -- CreateTable
 CREATE TABLE "patient" (
     "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
     "cpf" TEXT NOT NULL,
     "bithDate" TEXT NOT NULL,
     "homePhoneNumber1" TEXT NOT NULL,

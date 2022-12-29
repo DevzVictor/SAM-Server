@@ -9,19 +9,23 @@ import { Patient } from './entities/patient.entity';
 export class PatientService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createPatientDto: CreatePatientDto) {
+  create(createPatientDto: CreatePatientDto): Promise<Patient> {
     const patient: Patient = { ...createPatientDto, id: randomUUID() };
     return this.prisma.patient.create({
       data: patient,
     });
   }
 
-  findAll() {
+  findAll(): Promise<Patient[]> {
     return this.prisma.patient.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} patient`;
+  findOne(id: string): Promise<Patient> {
+    return this.prisma.patient.findUnique({
+      where: {
+        id: id,
+      },
+    });
   }
 
   update(id: number, updatePatientDto: UpdatePatientDto) {

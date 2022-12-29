@@ -10,7 +10,8 @@ import {
 import { PatientService } from './patient.service';
 import { CreatePatientDto } from './dto/create-patient.dto';
 import { UpdatePatientDto } from './dto/update-patient.dto';
-import { ApiTags } from '@nestjs/swagger/dist/decorators';
+import { ApiOperation, ApiTags } from '@nestjs/swagger/dist/decorators';
+import { Patient } from './entities/patient.entity';
 
 @ApiTags('Patient')
 @Controller('patient')
@@ -18,27 +19,36 @@ export class PatientController {
   constructor(private readonly patientService: PatientService) {}
 
   @Post()
-  create(@Body() createPatientDto: CreatePatientDto) {
+  @ApiOperation({
+    summary: 'Adicionar um paciente',
+  })
+  create(@Body() createPatientDto: CreatePatientDto): Promise<Patient> {
     return this.patientService.create(createPatientDto);
   }
 
   @Get()
-  findAll() {
+  @ApiOperation({
+    summary: 'Listar todos os pacientes',
+  })
+  findAll(): Promise<Patient[]> {
     return this.patientService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.patientService.findOne(+id);
+  @ApiOperation({
+    summary: 'Visualizar um pacientes a partir do ID',
+  })
+  findOne(@Param('id') id: string): Promise<Patient> {
+    return this.patientService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePatientDto: UpdatePatientDto) {
-    return this.patientService.update(+id, updatePatientDto);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updatePatientDto: UpdatePatientDto) {
+  //   return this.patientService.update(id, updatePatientDto);
+  // }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.patientService.remove(+id);
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.patientService.remove(id);
+  // }
 }
