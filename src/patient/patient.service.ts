@@ -28,8 +28,15 @@ export class PatientService {
     });
   }
 
-  update(id: number, updatePatientDto: UpdatePatientDto) {
-    return `This action updates a #${id} patient`;
+  update(id: string, updatePatientDto: UpdatePatientDto): Promise<Patient> {
+    const patient: Partial<Patient> = { ...updatePatientDto };
+
+    return this.prisma.patient.update({
+      where: {
+        id: id,
+      },
+      data: patient,
+    });
   }
 
   remove(id: number) {

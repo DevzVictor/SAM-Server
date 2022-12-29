@@ -36,16 +36,22 @@ export class PatientController {
 
   @Get(':id')
   @ApiOperation({
-    summary: 'Visualizar um pacientes a partir do ID',
+    summary: 'Visualizar um pacientes',
   })
   findOne(@Param('id') id: string): Promise<Patient> {
     return this.patientService.findOne(id);
   }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updatePatientDto: UpdatePatientDto) {
-  //   return this.patientService.update(id, updatePatientDto);
-  // }
+  @Patch(':id')
+  @ApiOperation({
+    summary: 'Atualizar dados de um pacientes',
+  })
+  update(
+    @Param('id') id: string,
+    @Body() updatePatientDto: UpdatePatientDto,
+  ): Promise<Patient> {
+    return this.patientService.update(id, updatePatientDto);
+  }
 
   // @Delete(':id')
   // remove(@Param('id') id: string) {
