@@ -12,8 +12,9 @@ datasource db {
 
 model patient {
   id               String @id @default(uuid())
+  name             String
   cpf              String @unique
-  bithDate         String 
+  bithDate         String
   homePhoneNumber1 String
   homePhoneNumber2 String
   image            String
