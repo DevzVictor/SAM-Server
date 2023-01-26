@@ -10,7 +10,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model patient {
+model User {
+  id       String @id @default(uuid())
+  name     String
+  image    String
+  email    String
+  password String
+  function String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("user")
+}
+
+model Patient {
   id               String @id @default(uuid())
   name             String
   cpf              String @unique
@@ -20,6 +34,46 @@ model patient {
   image            String
   comments         String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("patient")
+}
+
+model Medicament {
+  id            String @id @default(uuid())
+  name          String
+  quantity      String
+  repeatHour    Int
+  repeatMinutes Int
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("medicament")
+}
+
+model Vaccine {
+  id            String @id @default(uuid())
+  name          String
+  firstDoseDate String
+  nextDoseDate  String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("vaccine")
+}
+
+model Exam {
+  id   String @id @default(uuid())
+  name String
+  date String
+  hour String
+  lab  String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("exam")
 }
