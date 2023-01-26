@@ -5,9 +5,10 @@ import { PatientModule } from './patient/patient.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { UserModule } from './user/user.module';
 import { MedicamentModule } from './medicament/medicament.module';
+import { VaccineModule } from './vaccine/vaccine.module';
 
 @Module({
-  imports: [PatientModule, PrismaModule, UserModule, MedicamentModule],
+  imports: [PatientModule, PrismaModule, UserModule, MedicamentModule, VaccineModule],
   controllers: [AppController],
   providers: [AppService],
 })
