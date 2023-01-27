@@ -41,8 +41,19 @@ export class ExamService {
     return this.findById(id);
   }
 
-  update(id: number, updateExamDto: UpdateExamDto) {
-    return `This action updates a #${id} exam`;
+  async update(id: string, updateExamDto: UpdateExamDto): Promise<Exam> {
+    await this.findById(id);
+
+    const exam: Partial<Exam> = { ...updateExamDto };
+
+    return this.prisma.exam
+      .update({
+        where: {
+          id: id,
+        },
+        data: exam,
+      })
+      .catch(handleError);
   }
 
   remove(id: number) {
