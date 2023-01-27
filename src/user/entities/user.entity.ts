@@ -1,10 +1,10 @@
 export class User {
   id?: string;
   name: string;
+  password: string;
   image: string;
   email: string;
-  password: string;
-  function: string;
+  function?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
