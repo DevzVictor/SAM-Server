@@ -4,6 +4,6 @@ import { ExamController } from './exam.controller';
 
 @Module({
   controllers: [ExamController],
-  providers: [ExamService]
+  providers: [ExamService],
 })
 export class ExamModule {}
