@@ -37,8 +37,8 @@ export class ExamService {
     return record;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} exam`;
+  findOne(id: string): Promise<Exam> {
+    return this.findById(id);
   }
 
   update(id: number, updateExamDto: UpdateExamDto) {
