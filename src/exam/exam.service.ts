@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/handle-error.util';
@@ -21,6 +21,20 @@ export class ExamService {
 
   findAll(): Promise<Exam[]> {
     return this.prisma.exam.findMany();
+  }
+
+  async findById(id: string): Promise<Exam> {
+    const record = await this.prisma.exam.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!record) {
+      throw new NotFoundException(`Registro com o '${id}' não encontrado.`);
+    }
+
+    return record;
   }
 
   findOne(id: number) {
