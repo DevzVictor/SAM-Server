@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
 import { VaccineService } from './vaccine.service';
 import { VaccineController } from './vaccine.controller';
+import { PrismaModule } from 'src/prisma/prisma.module';
 
 @Module({
+  imports: [PrismaModule],
   controllers: [VaccineController],
-  providers: [VaccineService]
+  providers: [VaccineService],
 })
 export class VaccineModule {}
