@@ -56,7 +56,13 @@ export class ExamService {
       .catch(handleError);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} exam`;
+  async delete(id: string) {
+    await this.findById(id);
+
+    return this.prisma.exam.delete({
+      where: {
+        id: id,
+      },
+    });
   }
 }
