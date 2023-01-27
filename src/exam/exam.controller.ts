@@ -14,7 +14,7 @@ import { CreateExamDto } from './dto/create-exam.dto';
 import { UpdateExamDto } from './dto/update-exam.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
-@ApiTags('exam')
+@ApiTags('Exam')
 @Controller('exam')
 export class ExamController {
   constructor(private readonly examService: ExamService) {}
