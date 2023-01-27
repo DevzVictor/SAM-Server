@@ -19,8 +19,8 @@ export class ExamService {
       .catch(handleError);
   }
 
-  findAll() {
-    return `This action returns all exam`;
+  findAll(): Promise<Exam[]> {
+    return this.prisma.exam.findMany();
   }
 
   findOne(id: number) {
