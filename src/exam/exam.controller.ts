@@ -40,7 +40,7 @@ export class ExamController {
     summary: 'Mostrar um exame pelo ID',
   })
   findOne(@Param('id') id: string) {
-    return this.examService.findOne(+id);
+    return this.examService.findOne(id);
   }
 
   @Patch(':id')
@@ -48,7 +48,7 @@ export class ExamController {
     summary: 'Editar um agendamento de exame pelo ID',
   })
   update(@Param('id') id: string, @Body() updateExamDto: UpdateExamDto) {
-    return this.examService.update(+id, updateExamDto);
+    return this.examService.update(id, updateExamDto);
   }
 
   @Delete(':id')
@@ -56,7 +56,7 @@ export class ExamController {
   @ApiOperation({
     summary: 'Deletar um agendamento de exame pelo ID',
   })
-  remove(@Param('id') id: string) {
-    return this.examService.remove(+id);
+  delete(@Param('id') id: string) {
+    return this.examService.delete(id);
   }
 }
