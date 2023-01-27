@@ -4,7 +4,7 @@ export class User {
   password: string;
   image: string;
   email: string;
-  function?: string;
+  function: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
