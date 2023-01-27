@@ -59,7 +59,7 @@ export class ExamService {
   async delete(id: string) {
     await this.findById(id);
 
-    return this.prisma.exam.delete({
+    await this.prisma.exam.delete({
       where: {
         id: id,
       },

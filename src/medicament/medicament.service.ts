@@ -63,7 +63,7 @@ export class MedicamentService {
   async delete(id: string) {
     await this.findById(id);
 
-    return this.prisma.medicament.delete({
+    await this.prisma.medicament.delete({
       where: {
         id: id,
       },
