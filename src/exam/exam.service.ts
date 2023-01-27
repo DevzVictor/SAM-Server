@@ -1,11 +1,22 @@
 import { Injectable } from '@nestjs/common';
+import { randomUUID } from 'crypto';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { handleError } from 'src/utils/handle-error.util';
 import { CreateExamDto } from './dto/create-exam.dto';
 import { UpdateExamDto } from './dto/update-exam.dto';
+import { Exam } from './entities/exam.entity';
 
 @Injectable()
 export class ExamService {
-  create(createExamDto: CreateExamDto) {
-    return 'This action adds a new exam';
+  constructor(private readonly prisma: PrismaService) {}
+
+  create(createExamDto: CreateExamDto): Promise<Exam> {
+    const exam: Exam = { ...createExamDto, id: randomUUID() };
+    return this.prisma.exam
+      .create({
+        data: exam,
+      })
+      .catch(handleError);
   }
 
   findAll() {
