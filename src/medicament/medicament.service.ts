@@ -38,15 +38,35 @@ export class MedicamentService {
     return record;
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} medicament`;
+  findOne(id: string): Promise<Medicament> {
+    return this.findById(id);
   }
 
-  update(id: string, updateMedicamentDto: UpdateMedicamentDto) {
-    return `This action updates a #${id} medicament`;
+  async update(
+    id: string,
+    updateMedicamentDto: UpdateMedicamentDto,
+  ): Promise<Medicament> {
+    await this.findById(id);
+
+    const medicament: Partial<Medicament> = { ...updateMedicamentDto };
+
+    return this.prisma.medicament
+      .update({
+        where: {
+          id: id,
+        },
+        data: medicament,
+      })
+      .catch(handleError);
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} medicament`;
+  async delete(id: string) {
+    await this.findById(id);
+
+    return this.prisma.medicament.delete({
+      where: {
+        id: id,
+      },
+    });
   }
 }

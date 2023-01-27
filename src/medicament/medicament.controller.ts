@@ -55,6 +55,7 @@ export class MedicamentController {
   }
 
   @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
     summary: 'Deletar um controle de medicação pelo ID',
   })
