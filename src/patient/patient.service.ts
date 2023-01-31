@@ -12,6 +12,17 @@ export class PatientService {
 
   create(createPatientDto: CreatePatientDto): Promise<Patient> {
     const patient: Patient = { ...createPatientDto, id: randomUUID() };
+    // funcao para criar paciente atrelado ao user
+    // const patient: Prisma.PatientCreateInput = {
+    //   // user: {
+    //   //   connect: {
+    //   //     id: userId,
+    //   //   },
+    //   // },
+    //   ...createPatientDto,
+    //   id: randomUUID(),
+    // };
+
     return this.prisma.patient
       .create({
         data: patient,
@@ -47,7 +58,9 @@ export class PatientService {
   ): Promise<Patient> {
     await this.findById(id);
 
-    const patient: Partial<Patient> = { ...updatePatientDto };
+    const patient: Partial<Patient> = {
+      ...updatePatientDto,
+    };
 
     return this.prisma.patient
       .update({

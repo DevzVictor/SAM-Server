@@ -7,6 +7,7 @@ import { UserModule } from './user/user.module';
 import { MedicamentModule } from './medicament/medicament.module';
 import { VaccineModule } from './vaccine/vaccine.module';
 import { ExamModule } from './exam/exam.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ExamModule } from './exam/exam.module';
     MedicamentModule,
     VaccineModule,
     ExamModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
