@@ -8,14 +8,18 @@ import {
   Delete,
   HttpStatus,
   HttpCode,
+  UseGuards,
 } from '@nestjs/common';
 import { PatientService } from './patient.service';
 import { CreatePatientDto } from './dto/create-patient.dto';
 import { UpdatePatientDto } from './dto/update-patient.dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger/dist/decorators';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Patient } from './entities/patient.entity';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('Patient')
+@UseGuards(AuthGuard())
+@ApiBearerAuth()
 @Controller('patient')
 export class PatientController {
   constructor(private readonly patientService: PatientService) {}

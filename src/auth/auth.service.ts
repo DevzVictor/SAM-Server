@@ -1,26 +1,39 @@
-import { Injectable } from '@nestjs/common';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { loginResponseDto } from './dto/login-response.dto';
+import { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class AuthService {
-  create(createAuthDto: CreateAuthDto) {
-    return 'This action adds a new auth';
-  }
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly jwtService: JwtService,
+  ) {}
 
-  findAll() {
-    return `This action returns all auth`;
-  }
+  async login(loginDto: LoginDto): Promise<loginResponseDto> {
+    const { email, password } = loginDto;
 
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
-  }
+    // verifica se o user existe pelo email
+    const user = await this.prisma.user.findUnique({ where: { email } });
 
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
-  }
+    if (!user) {
+      throw new UnauthorizedException('Usuário é/ou Senha inválidos');
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
+    // validar senha se são correta
+    const isHashValid = await bcrypt.compare(password, user.password);
+
+    if (!isHashValid) {
+      throw new UnauthorizedException('Usuário é/ou Senha inválidos');
+    }
+
+    delete user.password;
+
+    return {
+      token: this.jwtService.sign({ email }),
+      user,
+    };
   }
 }
