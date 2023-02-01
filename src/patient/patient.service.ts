@@ -22,7 +22,7 @@ export class PatientService {
       id: randomUUID(),
     };
 
-    this.prisma.patient
+    return this.prisma.patient
       .create({
         data: patient,
         select: {
@@ -59,25 +59,33 @@ export class PatientService {
     return this.findById(id);
   }
 
-  // async update(
-  //   id: string,
-  //   updatePatientDto: UpdatePatientDto,
-  // ): Promise<Patient> {
-  //   await this.findById(id);
+  async update(
+    id: string,
+    updatePatientDto: UpdatePatientDto,
+  ): Promise<Patient> {
+    await this.findById(id);
 
-  //   const patient: Partial<Patient> = {
-  //     ...updatePatientDto,
-  //   };
+    const patient: Partial<Patient> = {
+      ...updatePatientDto,
+    };
 
-  //   return this.prisma.patient
-  //     .update({
-  //       where: {
-  //         id: id,
-  //       },
-  //       data: patient,
-  //     })
-  //     .catch(handleError);
-  // }
+    return this.prisma.patient
+      .update({
+        where: {
+          id: id,
+        },
+        data: {
+          bithDate: updatePatientDto.bithDate,
+          comments: updatePatientDto.comments,
+          cpf: updatePatientDto.cpf,
+          homePhoneNumber1: updatePatientDto.homePhoneNumber1,
+          homePhoneNumber2: updatePatientDto.homePhoneNumber2,
+          image: updatePatientDto.image,
+          name: updatePatientDto.name,
+        },
+      })
+      .catch(handleError);
+  }
 
   async delete(id: string) {
     await this.findById(id);

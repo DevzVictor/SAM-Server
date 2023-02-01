@@ -30,6 +30,17 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
+  @Get('patient_by_user')
+  @ApiOperation({
+    summary: 'Buscar todos os pacientes pelo usuário',
+  })
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  async findByPatientByUser(@Req() req) {
+    const id = req.user.id;
+    return await this.userService.findPatientByUser(id);
+  }
+
   @Get()
   @ApiOperation({
     summary: 'Listar todos os usuário',
@@ -69,16 +80,5 @@ export class UserController {
   @ApiBearerAuth()
   delete(@Param('id') id: string) {
     return this.userService.delete(id);
-  }
-
-  @Get('patient_by_user/:id')
-  @ApiOperation({
-    summary: 'Buscar todos os pacientes pelo usuário',
-  })
-  @UseGuards(AuthGuard())
-  @ApiBearerAuth()
-  async findByPatientByUser(@Param('id') id: string) {
-    // const id = req.user.id;
-    return await this.userService.findPatientByUser(id);
   }
 }

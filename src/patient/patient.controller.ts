@@ -50,16 +50,16 @@ export class PatientController {
     return this.patientService.findOne(id);
   }
 
-  // @Patch(':id')
-  // @ApiOperation({
-  //   summary: 'Atualizar dados de um pacientes',
-  // })
-  // update(
-  //   @Param('id') id: string,
-  //   @Body() updatePatientDto: UpdatePatientDto,
-  // ): Promise<Patient> {
-  //   return this.patientService.update(id, updatePatientDto);
-  // }
+  @Patch(':id')
+  @ApiOperation({
+    summary: 'Atualizar dados de um pacientes',
+  })
+  update(
+    @Param('id') id: string,
+    @Body() updatePatientDto: UpdatePatientDto,
+  ): Promise<Patient> {
+    return this.patientService.update(id, updatePatientDto);
+  }
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
