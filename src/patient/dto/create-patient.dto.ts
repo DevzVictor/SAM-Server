@@ -21,7 +21,7 @@ export class CreatePatientDto {
     description: 'Data de nascimento do Paciente',
     example: '31/03/1960',
   })
-  bithDate: string;
+  bithDate: Date;
 
   @IsString()
   @ApiProperty({

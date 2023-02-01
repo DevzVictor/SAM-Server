@@ -14,7 +14,7 @@ export class CreateExamDto {
     description: 'Data marcada para realizar exame',
     example: '21/10/2023',
   })
-  date: string;
+  date: Date;
 
   @IsString()
   @ApiProperty({

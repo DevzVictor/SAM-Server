@@ -4,7 +4,7 @@ export class Patient {
   id?: string;
   name: string;
   cpf: string;
-  bithDate: string;
+  bithDate: Date;
   homePhoneNumber1: string;
   homePhoneNumber2: string;
   image: string;
