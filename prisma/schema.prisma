@@ -30,7 +30,7 @@ model Patient {
   id               String       @id @default(uuid())
   name             String
   cpf              String       @unique
-  bithDate         DateTime
+  bithDate         String
   homePhoneNumber1 String
   homePhoneNumber2 String
   image            String
@@ -67,8 +67,8 @@ model Medicament {
 model Vaccine {
   id            String @id @default(uuid())
   name          String
-  firstDoseDate DateTime
-  nextDoseDate  DateTime
+  firstDoseDate String
+  nextDoseDate  String
 
   patient   Patient @relation(fields: [patientId], references: [id])
   patientId String  @map("patient_id")
@@ -82,7 +82,7 @@ model Vaccine {
 model Exam {
   id   String @id @default(uuid())
   name String
-  date DateTime
+  date String
   hour String
   lab  String
 

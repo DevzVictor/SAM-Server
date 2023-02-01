@@ -14,12 +14,12 @@ export class CreateVaccineDto {
     description: 'Data para primeira dose',
     example: '18/04/23',
   })
-  firstDoseDate: Date;
+  firstDoseDate: string;
 
   @IsString()
   @ApiProperty({
     description: 'Data para segunda dose',
     example: '20/06/23',
   })
-  nextDoseDate: Date;
+  nextDoseDate: string;
 }
