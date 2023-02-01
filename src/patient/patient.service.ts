@@ -25,11 +25,11 @@ export class PatientService {
     return this.prisma.patient
       .create({
         data: patient,
-        select: {
+        include: {
           user: {
             select: {
-              email: true,
               name: true,
+              email: true,
             },
           },
         },
