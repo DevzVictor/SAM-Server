@@ -15,6 +15,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
+import { Req } from '@nestjs/common/decorators';
 
 @ApiTags('User')
 @Controller('user')
@@ -68,5 +69,16 @@ export class UserController {
   @ApiBearerAuth()
   delete(@Param('id') id: string) {
     return this.userService.delete(id);
+  }
+
+  @Get('patient_by_user/:id')
+  @ApiOperation({
+    summary: 'Buscar todos os pacientes pelo usuário',
+  })
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  async findByPatientByUser(@Param('id') id: string) {
+    // const id = req.user.id;
+    return await this.userService.findPatientByUser(id);
   }
 }

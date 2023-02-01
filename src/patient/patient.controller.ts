@@ -16,6 +16,8 @@ import { UpdatePatientDto } from './dto/update-patient.dto';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Patient } from './entities/patient.entity';
 import { AuthGuard } from '@nestjs/passport';
+import { LoggedUser } from 'src/auth/logged-user.decorator';
+import { User } from 'src/user/entities/user.entity';
 
 @ApiTags('Patient')
 @UseGuards(AuthGuard())
@@ -28,16 +30,16 @@ export class PatientController {
   @ApiOperation({
     summary: 'Adicionar um paciente',
   })
-  create(@Body() createPatientDto: CreatePatientDto): Promise<Patient> {
-    return this.patientService.create(createPatientDto);
+  create(@LoggedUser() user: User, @Body() createPatientDto: CreatePatientDto) {
+    return this.patientService.create(user.id, createPatientDto);
   }
 
   @Get()
   @ApiOperation({
     summary: 'Listar todos os pacientes',
   })
-  findAll(): Promise<Patient[]> {
-    return this.patientService.findAll();
+  async findAll(): Promise<Patient[]> {
+    return await this.patientService.findAll();
   }
 
   @Get(':id')
@@ -48,16 +50,16 @@ export class PatientController {
     return this.patientService.findOne(id);
   }
 
-  @Patch(':id')
-  @ApiOperation({
-    summary: 'Atualizar dados de um pacientes',
-  })
-  update(
-    @Param('id') id: string,
-    @Body() updatePatientDto: UpdatePatientDto,
-  ): Promise<Patient> {
-    return this.patientService.update(id, updatePatientDto);
-  }
+  // @Patch(':id')
+  // @ApiOperation({
+  //   summary: 'Atualizar dados de um pacientes',
+  // })
+  // update(
+  //   @Param('id') id: string,
+  //   @Body() updatePatientDto: UpdatePatientDto,
+  // ): Promise<Patient> {
+  //   return this.patientService.update(id, updatePatientDto);
+  // }
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)

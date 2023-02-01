@@ -1,3 +1,5 @@
+import { User } from 'src/user/entities/user.entity';
+
 export class Patient {
   id?: string;
   name: string;
@@ -7,6 +9,7 @@ export class Patient {
   homePhoneNumber2: string;
   image: string;
   comments: string;
+  user?: User;
   createdAt?: Date;
   updatedAt?: Date;
 }

@@ -26,7 +26,7 @@ export class UserService {
 
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  async create(createUserDto: CreateUserDto) {
     if (createUserDto.password != createUserDto.confirmPassword) {
       throw new BadRequestException('As senhas informadas não são iguais');
     }
@@ -47,7 +47,7 @@ export class UserService {
       .catch(handleError);
   }
 
-  findAll(): Promise<User[]> {
+  findAll() {
     return this.prisma.user.findMany({
       select: this.userSelect,
     });
@@ -103,6 +103,13 @@ export class UserService {
 
     await this.prisma.user.delete({
       where: { id },
+    });
+  }
+
+  async findPatientByUser(id: string) {
+    await this.prisma.user.findUnique({
+      where: { id: id },
+      select: this.userSelect,
     });
   }
 }
