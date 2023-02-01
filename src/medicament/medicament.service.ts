@@ -5,13 +5,23 @@ import { UpdateMedicamentDto } from './dto/update-medicament.dto';
 import { Medicament } from './entities/medicament.entity';
 import { randomUUID } from 'crypto';
 import { handleError } from 'src/utils/handle-error.util';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class MedicamentService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createMedicamentDto: CreateMedicamentDto): Promise<Medicament> {
-    const medicament: Medicament = { ...createMedicamentDto, id: randomUUID() };
+  create(patientId: string, createMedicamentDto: CreateMedicamentDto) {
+    // const medicament: Medicament = { ...createMedicamentDto, id: randomUUID() };
+    const medicament: Prisma.MedicamentCreateInput = {
+      patient: {
+        connect: {
+          id: patientId,
+        },
+      },
+      ...createMedicamentDto,
+      id: randomUUID(),
+    };
 
     return this.prisma.medicament
       .create({
@@ -48,14 +58,20 @@ export class MedicamentService {
   ): Promise<Medicament> {
     await this.findById(id);
 
-    const medicament: Partial<Medicament> = { ...updateMedicamentDto };
+    // const medicament: Partial<Medicament> = { ...updateMedicamentDto };
 
     return this.prisma.medicament
       .update({
         where: {
           id: id,
         },
-        data: medicament,
+        // data: medicament,
+        data: {
+          name: updateMedicamentDto.name,
+          quantity: updateMedicamentDto.quantity,
+          repeatHour: updateMedicamentDto.repeatHour,
+          repeatMinutes: updateMedicamentDto.repeatMinutes,
+        },
       })
       .catch(handleError);
   }

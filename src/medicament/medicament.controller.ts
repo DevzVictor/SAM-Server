@@ -23,12 +23,15 @@ import { AuthGuard } from '@nestjs/passport';
 export class MedicamentController {
   constructor(private readonly medicamentService: MedicamentService) {}
 
-  @Post()
+  @Post(':id')
   @ApiOperation({
     summary: 'Criar controle de medicação',
   })
-  create(@Body() createMedicamentDto: CreateMedicamentDto) {
-    return this.medicamentService.create(createMedicamentDto);
+  create(
+    @Param('id') patientId: string,
+    @Body() createMedicamentDto: CreateMedicamentDto,
+  ) {
+    return this.medicamentService.create(patientId, createMedicamentDto);
   }
 
   @Get()

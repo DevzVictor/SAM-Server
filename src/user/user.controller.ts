@@ -32,11 +32,11 @@ export class UserController {
 
   @Get('patient_by_user')
   @ApiOperation({
-    summary: 'Buscar todos os pacientes pelo usuário',
+    summary: 'Buscar todos os pacientes cadastrados no usuário logado',
   })
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
-  async findByPatientByUser(@Req() req) {
+  async findPatientByUser(@Req() req) {
     const id = req.user.id;
     return await this.userService.findPatientByUser(id);
   }

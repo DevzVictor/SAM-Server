@@ -65,10 +65,6 @@ export class PatientService {
   ): Promise<Patient> {
     await this.findById(id);
 
-    const patient: Partial<Patient> = {
-      ...updatePatientDto,
-    };
-
     return this.prisma.patient
       .update({
         where: {
@@ -93,6 +89,36 @@ export class PatientService {
     await this.prisma.patient.delete({
       where: {
         id,
+      },
+    });
+  }
+
+  async findMedicamentByPatient(id: string) {
+    await this.findById(id);
+    return await this.prisma.patient.findUnique({
+      where: { id },
+      select: {
+        medicaments: true,
+      },
+    });
+  }
+
+  async findExamByPatient(id: string) {
+    await this.findById(id);
+    return await this.prisma.patient.findUnique({
+      where: { id },
+      select: {
+        exams: true,
+      },
+    });
+  }
+
+  async findVaccineByPatient(id: string) {
+    await this.findById(id);
+    return await this.prisma.patient.findUnique({
+      where: { id },
+      select: {
+        vacinnes: true,
       },
     });
   }

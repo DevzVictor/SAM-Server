@@ -27,14 +27,17 @@ model User {
 }
 
 model Patient {
-  id               String @id @default(uuid())
+  id               String       @id @default(uuid())
   name             String
-  cpf              String @unique
+  cpf              String       @unique
   bithDate         String
   homePhoneNumber1 String
   homePhoneNumber2 String
   image            String
   comments         String
+  medicaments      Medicament[]
+  exams            Exam[]
+  vacinnes         Vaccine[]
 
   user   User   @relation(fields: [userId], references: [id])
   userId String @map("user_id")
@@ -52,6 +55,9 @@ model Medicament {
   repeatHour    Int
   repeatMinutes Int
 
+  patient   Patient @relation(fields: [patientId], references: [id])
+  patientId String  @map("patient_id")
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -63,6 +69,9 @@ model Vaccine {
   name          String
   firstDoseDate String
   nextDoseDate  String
+
+  patient   Patient @relation(fields: [patientId], references: [id])
+  patientId String  @map("patient_id")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -76,6 +85,9 @@ model Exam {
   date String
   hour String
   lab  String
+
+  patient   Patient @relation(fields: [patientId], references: [id])
+  patientId String  @map("patient_id")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")

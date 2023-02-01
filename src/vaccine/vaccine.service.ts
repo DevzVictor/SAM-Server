@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { randomUUID } from 'crypto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/handle-error.util';
@@ -10,8 +11,20 @@ import { Vaccine } from './entities/vaccine.entity';
 export class VaccineService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createVaccineDto: CreateVaccineDto): Promise<Vaccine> {
-    const vaccine: Vaccine = { ...createVaccineDto, id: randomUUID() };
+  create(
+    patientId: string,
+    createVaccineDto: CreateVaccineDto,
+  ): Promise<Vaccine> {
+    // const vaccine: Vaccine = { ...createVaccineDto, id: randomUUID() };
+    const vaccine: Prisma.VaccineCreateInput = {
+      patient: {
+        connect: {
+          id: patientId,
+        },
+      },
+      ...createVaccineDto,
+      id: randomUUID(),
+    };
     return this.prisma.vaccine
       .create({
         data: vaccine,
@@ -47,14 +60,18 @@ export class VaccineService {
   ): Promise<Vaccine> {
     await this.findById(id);
 
-    const vaccine: Partial<Vaccine> = { ...updateVaccineDto };
+    // const vaccine: Partial<Vaccine> = { ...updateVaccineDto };
 
     return this.prisma.vaccine
       .update({
         where: {
           id: id,
         },
-        data: vaccine,
+        data: {
+          name: updateVaccineDto.name,
+          firstDoseDate: updateVaccineDto.firstDoseDate,
+          nextDoseDate: updateVaccineDto.nextDoseDate,
+        },
       })
       .catch(handleError);
   }

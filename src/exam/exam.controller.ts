@@ -23,12 +23,12 @@ import { AuthGuard } from '@nestjs/passport';
 export class ExamController {
   constructor(private readonly examService: ExamService) {}
 
-  @Post()
+  @Post(':id')
   @ApiOperation({
     summary: 'Agendar um exame',
   })
-  create(@Body() createExamDto: CreateExamDto) {
-    return this.examService.create(createExamDto);
+  create(@Param('id') patientId: string, @Body() createExamDto: CreateExamDto) {
+    return this.examService.create(patientId, createExamDto);
   }
 
   @Get()

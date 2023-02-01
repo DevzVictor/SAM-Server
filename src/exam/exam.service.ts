@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { randomUUID } from 'crypto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/handle-error.util';
@@ -10,8 +11,17 @@ import { Exam } from './entities/exam.entity';
 export class ExamService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createExamDto: CreateExamDto): Promise<Exam> {
-    const exam: Exam = { ...createExamDto, id: randomUUID() };
+  create(patientId: string, createExamDto: CreateExamDto): Promise<Exam> {
+    // const exam: Exam = { ...createExamDto, id: randomUUID() };
+    const exam: Prisma.ExamCreateInput = {
+      patient: {
+        connect: {
+          id: patientId,
+        },
+      },
+      ...createExamDto,
+      id: randomUUID(),
+    };
     return this.prisma.exam
       .create({
         data: exam,
@@ -44,14 +54,19 @@ export class ExamService {
   async update(id: string, updateExamDto: UpdateExamDto): Promise<Exam> {
     await this.findById(id);
 
-    const exam: Partial<Exam> = { ...updateExamDto };
+    // const exam: Partial<Exam> = { ...updateExamDto };
 
     return this.prisma.exam
       .update({
         where: {
           id: id,
         },
-        data: exam,
+        data: {
+          name: updateExamDto.name,
+          lab: updateExamDto.lab,
+          date: updateExamDto.date,
+          hour: updateExamDto.hour,
+        },
       })
       .catch(handleError);
   }

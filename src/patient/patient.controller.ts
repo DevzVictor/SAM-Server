@@ -34,6 +34,39 @@ export class PatientController {
     return this.patientService.create(user.id, createPatientDto);
   }
 
+  @Get('medicament_by_user/:id')
+  @ApiOperation({
+    summary: 'Buscar todos os medicamentos cadastrados no paciente selecionado',
+  })
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  async findMedicamentByUser(@Param('id') id: string) {
+    // const id = req.user.id;
+    return await this.patientService.findMedicamentByPatient(id);
+  }
+
+  @Get('exam_by_user/:id')
+  @ApiOperation({
+    summary: 'Buscar todos os exames cadastrados no paciente selecionado',
+  })
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  async findExamByUser(@Param('id') id: string) {
+    // const id = req.user.id;
+    return await this.patientService.findMedicamentByPatient(id);
+  }
+
+  @Get('vaccine_by_user/:id')
+  @ApiOperation({
+    summary: 'Buscar todas as vacinas cadastrados no paciente selecionado',
+  })
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
+  async findVaccineByUser(@Param('id') id: string) {
+    // const id = req.user.id;
+    return await this.patientService.findVaccineByPatient(id);
+  }
+
   @Get()
   @ApiOperation({
     summary: 'Listar todos os pacientes',
