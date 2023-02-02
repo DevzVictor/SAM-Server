@@ -98,6 +98,8 @@ export class PatientService {
     return await this.prisma.patient.findUnique({
       where: { id },
       select: {
+        name: true,
+        image: true,
         medicaments: true,
       },
     });
@@ -108,6 +110,8 @@ export class PatientService {
     return await this.prisma.patient.findUnique({
       where: { id },
       select: {
+        name: true,
+        image: true,
         exams: true,
       },
     });
@@ -118,7 +122,9 @@ export class PatientService {
     return await this.prisma.patient.findUnique({
       where: { id },
       select: {
-        vacinnes: true,
+        name: true,
+        image: true,
+        vaccines: true,
       },
     });
   }

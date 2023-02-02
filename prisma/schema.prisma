@@ -37,7 +37,7 @@ model Patient {
   comments         String
   medicaments      Medicament[]
   exams            Exam[]
-  vacinnes         Vaccine[]
+  vaccines         Vaccine[]
 
   user   User   @relation(fields: [userId], references: [id])
   userId String @map("user_id")
