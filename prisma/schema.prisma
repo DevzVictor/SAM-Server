@@ -68,8 +68,9 @@ model Medicament {
 model Vaccine {
   id            String @id @default(uuid())
   name          String
-  firstDoseDate String
-  nextDoseDate  String
+  firstDoseDate String @default("")
+  nextDoseDate  String @default("")
+  comments      String @default("")
 
   patient   Patient @relation(fields: [patientId], references: [id])
   patientId String  @map("patient_id")

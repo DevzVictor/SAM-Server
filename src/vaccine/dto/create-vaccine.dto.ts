@@ -14,12 +14,19 @@ export class CreateVaccineDto {
     description: 'Data para primeira dose',
     example: '18/04/23',
   })
-  firstDoseDate: string;
+  firstDoseDate?: string;
 
   @IsString()
   @ApiProperty({
     description: 'Data para segunda dose',
     example: '20/06/23',
   })
-  nextDoseDate: string;
+  nextDoseDate?: string;
+
+  @IsString()
+  @ApiProperty({
+    description: 'Detalhes para tomar a vacina',
+    example: 'Verificar se tem alergia a leite',
+  })
+  comments?: string;
 }
