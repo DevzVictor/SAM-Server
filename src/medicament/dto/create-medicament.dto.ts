@@ -21,7 +21,7 @@ export class CreateMedicamentDto {
     description: 'Tipo do medicamento',
     example: 'Comprimido',
   })
-  type: string;
+  type?: string;
 
   @IsNumber()
   @IsPositive()
@@ -36,5 +36,5 @@ export class CreateMedicamentDto {
     description: 'Detalhes para se atentar antes de se medicar',
     example: 'Se alimentar antes de tomar o medicamento',
   })
-  comments: string;
+  comments?: string;
 }

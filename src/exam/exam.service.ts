@@ -66,6 +66,7 @@ export class ExamService {
           lab: updateExamDto.lab,
           date: updateExamDto.date,
           hour: updateExamDto.hour,
+          comments: updateExamDto.comments,
         },
       })
       .catch(handleError);

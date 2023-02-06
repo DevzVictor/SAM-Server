@@ -5,7 +5,8 @@ export class Exam {
   name: string;
   date: string;
   hour: string;
-  lab: string;
+  lab?: string;
+  comments?: string;
   patient?: Patient;
   createdAt?: Date;
   updatedAt?: Date;

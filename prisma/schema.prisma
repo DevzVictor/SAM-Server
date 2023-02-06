@@ -52,9 +52,9 @@ model Medicament {
   id         String @id @default(uuid())
   name       String
   quantity   String
-  type       String
+  type       String @default("")
   repeatTime Int
-  comments   String
+  comments   String @default("")
 
   patient   Patient @relation(fields: [patientId], references: [id])
   patientId String  @map("patient_id")
@@ -81,11 +81,12 @@ model Vaccine {
 }
 
 model Exam {
-  id   String @id @default(uuid())
-  name String
-  date String
-  hour String
-  lab  String
+  id       String @id @default(uuid())
+  name     String
+  date     String
+  hour     String
+  lab      String @default("")
+  comments String @default("")
 
   patient   Patient @relation(fields: [patientId], references: [id])
   patientId String  @map("patient_id")

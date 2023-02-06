@@ -28,5 +28,12 @@ export class CreateExamDto {
     description: 'Nome do laboratório que irá realizar o exame',
     example: 'laboratório BloodX',
   })
-  lab: string;
+  lab?: string;
+
+  @IsString()
+  @ApiProperty({
+    description: 'Detalhes para serem anotados antes do exame',
+    example: 'lr fazer o exame com 8 horas de jejum',
+  })
+  comments?: string;
 }
