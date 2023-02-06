@@ -4,8 +4,8 @@ export class Medicament {
   id?: string;
   name: string;
   quantity: string;
-  type?: string;
   repeatTime: number;
+  type?: string;
   comments?: string;
   patient?: Patient;
   createdAt?: Date;

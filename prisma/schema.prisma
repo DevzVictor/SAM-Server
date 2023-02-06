@@ -52,8 +52,8 @@ model Medicament {
   id         String @id @default(uuid())
   name       String
   quantity   String
-  type       String @default("")
   repeatTime Int
+  type       String @default("")
   comments   String @default("")
 
   patient   Patient @relation(fields: [patientId], references: [id])

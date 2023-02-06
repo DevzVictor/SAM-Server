@@ -16,13 +16,6 @@ export class CreateMedicamentDto {
   })
   quantity: string;
 
-  @IsString()
-  @ApiProperty({
-    description: 'Tipo do medicamento',
-    example: 'Comprimido',
-  })
-  type?: string;
-
   @IsNumber()
   @IsPositive()
   @ApiProperty({
@@ -30,6 +23,13 @@ export class CreateMedicamentDto {
     example: 2,
   })
   repeatTime: number;
+
+  @IsString()
+  @ApiProperty({
+    description: 'Tipo do medicamento',
+    example: 'Comprimido',
+  })
+  type?: string;
 
   @IsPositive()
   @ApiProperty({
