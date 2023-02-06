@@ -30,11 +30,11 @@ model Patient {
   id               String       @id @default(uuid())
   name             String
   cpf              String       @unique
-  bithDate         String
-  homePhoneNumber1 String
-  homePhoneNumber2 String
-  image            String
-  comments         String
+  bithDate         String       @default("")
+  homePhoneNumber1 String       @default("")
+  homePhoneNumber2 String       @default("")
+  image            String       @default("")
+  comments         String       @default("")
   medicaments      Medicament[]
   exams            Exam[]
   vaccines         Vaccine[]
