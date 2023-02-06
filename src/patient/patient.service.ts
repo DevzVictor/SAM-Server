@@ -46,6 +46,11 @@ export class PatientService {
       where: {
         id: id,
       },
+      include: {
+        exams: true,
+        medicaments: true,
+        vaccines: true,
+      },
     });
 
     if (!record) {

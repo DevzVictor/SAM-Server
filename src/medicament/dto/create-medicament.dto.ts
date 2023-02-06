@@ -31,7 +31,7 @@ export class CreateMedicamentDto {
   })
   type?: string;
 
-  @IsPositive()
+  @IsString()
   @ApiProperty({
     description: 'Detalhes para se atentar antes de se medicar',
     example: 'Se alimentar antes de tomar o medicamento',
