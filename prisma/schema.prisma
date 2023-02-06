@@ -49,11 +49,12 @@ model Patient {
 }
 
 model Medicament {
-  id            String @id @default(uuid())
-  name          String
-  quantity      String
-  repeatHour    Int
-  repeatMinutes Int
+  id         String @id @default(uuid())
+  name       String
+  quantity   String
+  type       String
+  repeatTime Int
+  comments   String
 
   patient   Patient @relation(fields: [patientId], references: [id])
   patientId String  @map("patient_id")

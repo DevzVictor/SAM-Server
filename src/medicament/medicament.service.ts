@@ -69,8 +69,9 @@ export class MedicamentService {
         data: {
           name: updateMedicamentDto.name,
           quantity: updateMedicamentDto.quantity,
-          repeatHour: updateMedicamentDto.repeatHour,
-          repeatMinutes: updateMedicamentDto.repeatMinutes,
+          type: updateMedicamentDto.type,
+          repeatTime: updateMedicamentDto.repeatTime,
+          comments: updateMedicamentDto.comments,
         },
       })
       .catch(handleError);

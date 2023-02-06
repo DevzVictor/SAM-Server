@@ -12,23 +12,29 @@ export class CreateMedicamentDto {
   @IsString()
   @ApiProperty({
     description: 'Quantidade do medicamento',
-    example: '20 gotas',
+    example: '1',
   })
   quantity: string;
 
-  @IsNumber()
-  @IsPositive()
+  @IsString()
   @ApiProperty({
-    description: 'Intervalo de horas para cada dose do medicamento',
-    example: 2,
+    description: 'Tipo do medicamento',
+    example: 'Comprimido',
   })
-  repeatHour: number;
+  type: string;
 
   @IsNumber()
   @IsPositive()
   @ApiProperty({
-    description: 'Intervalo de minutos para cada dose do medicamento',
-    example: 30,
+    description: 'Intervalo para cada dose do medicamento',
+    example: 2,
   })
-  repeatMinutes: number;
+  repeatTime: number;
+
+  @IsPositive()
+  @ApiProperty({
+    description: 'Detalhes para se atentar antes de se medicar',
+    example: 'Se alimentar antes de tomar o medicamento',
+  })
+  comments: string;
 }
