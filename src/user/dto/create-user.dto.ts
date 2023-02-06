@@ -32,7 +32,7 @@ export class CreateUserDto {
     description: 'Foto do usuário',
     example: 'https://avatars.githubusercontent.com/u/91481122?v=4',
   })
-  image: string;
+  image?: string;
 
   @IsString()
   @ApiProperty({
@@ -46,5 +46,5 @@ export class CreateUserDto {
     description: 'Função do usuário',
     example: 'Enfermeiro',
   })
-  function: string;
+  function?: string;
 }
